@@ -1,4 +1,5 @@
 <?php
+session_start();
 // define variables and set to empty values
 $lastNameErr = $firstNameErr = $emailErr = $subjectErr= $messageErr = $numberErr = "";
 $lastName = $firstName = $email =$subject = $message = $number = "";
@@ -25,17 +26,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $firstName = test_input($_POST["user_last_name"]);
     };
 
-  
-    // if (empty($_POST["email"])) {
-    //   $emailErr = "Email is required";
-    // } else {
-    //   $email = test_input($_POST["email"]);
-    //   // check if e-mail address is well-formed
-    //   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    //     $emailErr = "Invalid email format";
-    //     $emailExist = $email;
-    //           }
-    // }
+    var_dump($_POST);
+  echo'machin';
+    if (empty($_POST["user_email"])) {
+      $emailErr = "Email is required";
+     
+    } else {
+     
+      $email = test_input($_POST["user_email"]);
+      // check if e-mail address is well-formed
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $emailErr = "Invalid email format";
+     
+       
+              }else {
+                echo"email okay";
+                 $emailExist = $email;
+                }
+    }
 
   if (empty($_POST["user_number"])) {
     $numberErr = "Number is required";
@@ -52,7 +60,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $comment = test_input($_POST["user_message"]);
       }}
 
- 
+      if (isset($_POST['submit'])){
+        echo "submit ok";
+            if ($lastNameErr == "" && $firstNameErr== "" && isset($emailExist)  && $subjectErr == "" && $messageErr == "" && isset($numberGood)){
+        echo"tout est ok";
+        echo $_POST["user_last_name"];
+        $_SESSION["user"]=$_POST["user_last_name"];
+        var_dump($_SESSION);
+              header('Location:thanks.php');
+              die();
+                } else {
+                  echo "Données manquantes";
+                die();
+                }; }
 ?>
 
 <form method="post" action="#">
@@ -104,11 +124,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php
 
-if (isset($_POST['submit'])){
-      if (!isset( $lastNameErr ) && !isset($firstNameErr)&& isset($emailExist)  && !isset($subjectErr)&& !isset($messageErr)&& isset($numberGood)){
-  
-        header('Location : thanks.php');
-          } else {
-            echo "Données manquantes";
-          die();
-          }; }
+// if (isset($_POST['submit'])){
+//   echo "submit ok";
+//       if ($lastNameErr == "" && $firstNameErr== "" && isset($emailExist)  && $subjectErr == "" && $messageErr == "" && isset($numberGood)){
+//   echo"tout est ok";
+//   echo $_POST["user_last_name"];
+//   $_SESSION["user"]=$_POST["user_last_name"];
+//   var_dump($_SESSION);
+ 
+//         header('Location:thanks.php');
+//         die();
+//           } else {
+//             echo "Données manquantes";
+//           die();
+//           }; }
