@@ -17,44 +17,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $lastNameErr = "Last name is required";
   } else {
     $lastName = test_input($_POST["user_last_name"]);
-  }}
+    };
 
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["user_first_name"])) {
       $firstNameErr = "First name is required";
     } else {
       $firstName = test_input($_POST["user_last_name"]);
-    }}
+    };
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    if (empty($_POST["email"])) {
-      $emailErr = "Email is required";
-    } else {
-      $email = test_input($_POST["email"]);
-      // check if e-mail address is well-formed
-      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $emailErr = "Invalid email format";
-      }
-    }}
+  
+    // if (empty($_POST["email"])) {
+    //   $emailErr = "Email is required";
+    // } else {
+    //   $email = test_input($_POST["email"]);
+    //   // check if e-mail address is well-formed
+    //   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    //     $emailErr = "Invalid email format";
+    //     $emailExist = $email;
+    //           }
+    // }
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST"){
   if (empty($_POST["user_number"])) {
     $numberErr = "Number is required";
   } else if(preg_match('/^[0-9]{10}+$/', $_POST["user_number"])) {
-    $numberErr = "Valid Phone Number";
+    $numberGood = "Valid Phone Number";
     } else {
       $numberErr = "Invalid Phone Number";
-    }}
+          }
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+   
   if (empty($_POST["user_message"])) {
     $messageErr = "Message is required";
   } else {
     $comment = test_input($_POST["user_message"]);
-  }}
+      }}
+
+ 
 ?>
 
-<form method="post" action="thanks.php">
+<form method="post" action="#">
     <div>
         Nom :
         <input type="text" name="user_last_name">
@@ -97,6 +98,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <br><br>
     </div>
     <div class="button">
-        <button type="submit">Envoyer votre message</button>
+        <input type="submit" name="submit" value="envoyer"></input>
     </div>
 </form>
+
+<?php
+
+if (isset($_POST['submit'])){
+      if (!isset( $lastNameErr ) && !isset($firstNameErr)&& isset($emailExist)  && !isset($subjectErr)&& !isset($messageErr)&& isset($numberGood)){
+  
+        header('Location : thanks.php');
+          } else {
+            echo "Données manquantes";
+          die();
+          }; }
