@@ -67,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo $_POST["user_last_name"];
         $_SESSION["user"]=$_POST["user_last_name"];
         var_dump($_SESSION);
+       
               header('Location:thanks.php');
               die();
                 } else {
@@ -75,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }; }
 ?>
 
-<form method="post" action="#">
+<form method="post" action="thanks.php">
     <div>
         Nom :
         <input type="text" name="user_last_name">
