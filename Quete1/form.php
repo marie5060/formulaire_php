@@ -43,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($_POST["user_number"])) {
     $numberErr = "Number is required";
+    // check if number is in good format
   } else if(preg_match('/^[0-9]{10}+$/', $_POST["user_number"])) {
     $numberGood = "Valid Phone Number";
     } else {
@@ -128,18 +129,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </form>
 
 <?php
-
-if (isset($_POST['submit'])){
-  echo "submit ok";
-      if ($lastNameErr == "" && $firstNameErr== "" && isset($emailExist)  && $subjectErr == "" && $messageErr == "" && isset($numberGood)){
-  echo"tout est ok";
-  echo $_POST["user_last_name"];
-  $_SESSION["user"]=$_POST["user_last_name"];
-  var_dump($_SESSION);
- 
-        header('Location:thanks.php');
-        die();
-          } else {
-            echo "Données manquantes";
-          die();
-          }; }
